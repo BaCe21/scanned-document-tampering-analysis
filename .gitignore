@@ -35,8 +35,6 @@ temp/
 real_imgs/
 fake_imgs/
 
-# Local thesis data
-data/
 
 # OS
 .DS_Store
