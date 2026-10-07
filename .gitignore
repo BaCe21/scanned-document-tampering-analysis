@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Datasets / local input data
+data/
+datasets/
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Generated / temporary outputs
+outputs/
+runs/
+tmp/
+temp/
+
+# Archives
+*.zip
+*.rar
+*.7z
+
+# OS
+.DS_Store
+Thumbs.db
