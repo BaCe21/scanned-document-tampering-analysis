@@ -6,6 +6,12 @@ from pdf2image import convert_from_path
 import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
+DATA_DIR = "data"
+PDF_DIR = os.path.join(DATA_DIR, "pdfs")
+LETTERS_DIR = os.path.join(DATA_DIR, "letters")
+MODIFIED_DIR = os.path.join(DATA_DIR, "modified_documents")
+LABELS_CSV = os.path.join(DATA_DIR, "letters_labels.csv")
+
 def sanitize_filename(filename):
     # Convert to ASCII, ignoring non-ASCII characters.
     filename = filename.encode("ascii", "ignore").decode()
@@ -64,7 +70,7 @@ def replace_words(image, word_boxes, replacement_prob=0.5):
 
 # Step 4: Save the modified document image in a separate folder.
 def save_modified_document(image, base_name):
-    modified_folder = "modified_documents"
+    modified_folder = MODIFIED_DIR
     os.makedirs(modified_folder, exist_ok=True)
     output_path = os.path.join(modified_folder, f"{base_name}_modified.png")
     image.save(output_path)
@@ -189,7 +195,7 @@ def main(pdf_folder):
         return
 
     unified_rows = []  # Collect CSV rows from all PDFs.
-    letters_folder = "letters"
+    letters_folder = LETTERS_DIR
     os.makedirs(letters_folder, exist_ok=True)
 
     for pdf_file in pdf_files:
@@ -198,7 +204,7 @@ def main(pdf_folder):
         unified_rows.extend(rows)
 
     # Write the unified CSV file.
-    csv_filename = "letters_labels.csv"
+    csv_filename = LABELS_CSV
     with open(csv_filename, "w", newline='', encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["filename", "label", "letter"])
@@ -206,5 +212,8 @@ def main(pdf_folder):
     print(f"Unified CSV saved as '{csv_filename}'")
 
 if __name__ == "__main__":
-    pdf_folder = "pdfs"  # Replace with the path to your PDF folder.
-    main(pdf_folder)
+    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(PDF_DIR, exist_ok=True)
+    os.makedirs(LETTERS_DIR, exist_ok=True)
+
+    main(PDF_DIR)

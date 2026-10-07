@@ -65,8 +65,8 @@ conf = {
     'image_channel': 1,
     'batch_size': 256,
     'image_size': 64,
-    'data_path': 'letters_new',
-    'csv_file': 'letters_labels_cleaned.csv'
+    'data_path': 'data/letters',
+    'csv_file': 'data/letters_labels.csv'
 }
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

@@ -19,7 +19,7 @@ from torchvision.io import decode_image
 class LetterDS(Dataset):
     
     def __init__(self, root_dir, transform=None, sel='real'):
-        csvf = os.path.join(root_dir,'literki', 'letters_labels_cleaned.csv')
+        csvf = os.path.join(root_dir, "letters_labels.csv")
         self.label_map = {'real': 0, 'fake': 1}
         self.finfo = pd.read_csv(csvf)
         # here is new
@@ -47,8 +47,7 @@ class LetterDS(Dataset):
     def get_filename(self, idx):
         return os.path.join(
             self.root_dir,
-            'literki',
-            'letters_new',
+            "letters",
             self.finfo.filename[idx]
         )
             
@@ -438,7 +437,7 @@ class IGANMgr():
         self.make_generator()
         self.make_discriminator()
         self.set_optimizer()
-        if data_set == 'letters_new':
+        if data_set == "letters":
             self.get_data_letters()
         else:
             self.get_data_mnist()
@@ -487,10 +486,7 @@ def get_batch(batch_size, n_samples, radius=10, verbose=False):
 if __name__ == '__main__':
     conf = {
         'cuda':True,
-        # change data path with respect to your directory structure
-        # images need to be located in data/PDFGAN/letters
-        # csv_file need to be in  data/PDFGAN/letters_labels.csv
-        'data_path':'.',
+        'data_path':'data',
         'batch_size': 128, #2000, #128,
         'num_workers': 16,
         'image_channel': 1, # number of color channels of input image
@@ -506,5 +502,5 @@ if __name__ == '__main__':
         'seed':1354456345 # 1
     }
     ig = IGANMgr(conf)
-    ig.run('letters_new') #'letters' run the pdf letters, 'mnist' run the mnist dat a
+    ig.run('letters') #'letters' run the pdf letters, 'mnist' run the mnist dat a
 

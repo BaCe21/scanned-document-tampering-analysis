@@ -2,8 +2,8 @@ import csv
 import matplotlib.pyplot as plt
 from collections import Counter
 
-csv_path = "letters_labels_cleaned.csv"  # dopasuj jeśli inna nazwa
-output_path = "histogram.png"            # ścieżka do zapisu histogramu
+csv_path = "data/letters_labels.csv"  
+output_path = "histogram.png"           
 
 def draw_histogram(csv_file, save_path=None):
     with open(csv_file, newline='', encoding='utf-8') as f:
